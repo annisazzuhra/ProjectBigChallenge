@@ -10,24 +10,21 @@ int main()
     char outputBersih[] = "bersih.txt";
     char fileBin[] = "output.bin";
 
+    int sudahSimpan = 0;   // <--- penanda penting sesuai perintah tugas
+
     printf("Masukkan nama file input (txt): ");
     scanf("%s", input);
 
-    printf("Membersihkan file...\n");
+    // proses awal
     bersihkanTeks(input, outputBersih);
-
-    printf("Tokenisasi...\n");
     tokenisasiKata(outputBersih);
-
-    printf("Menghitung frekuensi...\n");
     hitungFrekuensi();
-
-    printf("Sorting...\n");
     sortirFrekuensi();
     sortirPanjang();
     sortirAlfabet();
 
     int pilihan;
+
     while (1)
     {
         printf("\nMENU:\n");
@@ -40,12 +37,27 @@ int main()
         if (pilihan == 1)
         {
             simpanBinari(fileBin);
+            sudahSimpan = 1;
+
+            printf("\nFile binari berhasil disimpan.\n");
+            printf("Tekan ENTER untuk kembali ke menu...");
+        getchar(); getchar();   // <-- pause biar tidak langsung ke menu
         }
+
         else if (pilihan == 2)
         {
             int n;
             printf("Masukkan n (1-25): ");
             scanf("%d", &n);
+
+            // <=== BAGIAN PALING PENTING (PERBAIKAN)
+            if (!sudahSimpan)
+            {
+                printf("File binari belum dibuat. Menyimpan terlebih dahulu...\n");
+                simpanBinari(fileBin);
+                sudahSimpan = 1;
+            }
+
             bacaBinari(fileBin, n);
         }
         else if (pilihan == 3)
@@ -54,7 +66,7 @@ int main()
         }
         else
         {
-            printf("Pilihan tidak valid\n");
+            printf("Pilihan tidak valid.\n");
         }
     }
 
