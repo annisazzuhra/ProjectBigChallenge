@@ -1,47 +1,62 @@
 #include <stdio.h>
 #include "struktur.h"
 
-struct Kata daftar[2000000]; // maksimal 2 juta kata (contoh)
+struct Kata daftar[2000000];
+int jumlahKata = 0;
 
-int main() {
+int main()
+{
+    char input[100];
+    char outputBersih[] = "bersih.txt";
+    char fileBin[] = "output.bin";
 
-    char input[]  = "input.txt";
-    char bersih[] = "bersih.txt";
+    printf("Masukkan nama file input (txt): ");
+    scanf("%s", input);
 
-    // 1. Bersihkan file
-    bersihkan_file(input, bersih);
+    printf("Membersihkan file...\n");
+    bersihkanTeks(input, outputBersih);
 
-    // 2. Tokenisasi
-    int total = tokenisasi(bersih, daftar);
+    printf("Tokenisasi...\n");
+    tokenisasiKata(outputBersih);
 
-    // 3. Hitung frekuensi
-    hitung_kata(daftar, total);
+    printf("Menghitung frekuensi...\n");
+    hitungFrekuensi();
 
-    // 4. Sorting (sesuai PDF → 3 output)
-    sort_frekuensi(daftar, total);
+    printf("Sorting...\n");
+    sortirFrekuensi();
+    sortirPanjang();
+    sortirAlfabet();
 
-    printf("=== URUT FREKUENSI ===\n");
-    for (int i = 0; i < total; i++) {
-        if (daftar[i].jumlah > 0)
-            printf("%s  %d\n", daftar[i].teks, daftar[i].jumlah);
-    }
+    int pilihan;
+    while (1)
+    {
+        printf("\nMENU:\n");
+        printf("1) Simpan ke file binari\n");
+        printf("2) Tampilkan n kata\n");
+        printf("3) Keluar\n");
+        printf("Pilihan anda: ");
+        scanf("%d", &pilihan);
 
-    sort_panjang(daftar, total);
-
-    printf("\n=== URUT PANJANG ===\n");
-    for (int i = 0; i < total; i++) {
-        if (daftar[i].jumlah > 0)
-            printf("%s  (%d)\n", daftar[i].teks, daftar[i].panjang);
-    }
-
-    sort_alfabet(daftar, total);
-
-    printf("\n=== URUT ALFABET ===\n");
-    for (int i = 0; i < total; i++) {
-        if (daftar[i].jumlah > 0)
-            printf("%s\n", daftar[i].teks);
+        if (pilihan == 1)
+        {
+            simpanBinari(fileBin);
+        }
+        else if (pilihan == 2)
+        {
+            int n;
+            printf("Masukkan n (1-25): ");
+            scanf("%d", &n);
+            bacaBinari(fileBin, n);
+        }
+        else if (pilihan == 3)
+        {
+            break;
+        }
+        else
+        {
+            printf("Pilihan tidak valid\n");
+        }
     }
 
     return 0;
 }
-

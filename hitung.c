@@ -1,23 +1,23 @@
 #include <string.h>
 #include "struktur.h"
 
-int hitung_kata(struct Kata daftar[], int n) {
-
-    for (int i = 0; i < n; i++) {
-        if (daftar[i].jumlah == 0)
+void hitungFrekuensi()
+{
+    for (int i = 0; i < jumlahKata; i++)
+    {
+        if (daftar[i].freq == 0)
             continue;
 
-        for (int j = i + 1; j < n; j++) {
+        for (int j = i + 1; j < jumlahKata; j++)
+        {
+            if (daftar[j].freq == 0)
+                continue;
 
-            // jika katanya sama
-            if (strcmp(daftar[i].teks, daftar[j].teks) == 0) {
-
-                daftar[i].jumlah++;   // tambahkan frekuensi
-                daftar[j].jumlah = 0; // tandai sudah digabung
+            if (strcmp(daftar[i].teks, daftar[j].teks) == 0)
+            {
+                daftar[i].freq++;
+                daftar[j].freq = 0;
             }
         }
     }
-
-    return 0;
 }
-

@@ -2,28 +2,35 @@
 #include <string.h>
 #include "struktur.h"
 
-int tokenisasi(const char *nama_file, struct Kata daftar[]) {
+struct Kata daftar[2000000];
+int jumlahKata = 0;
 
-    FILE *fp = fopen(nama_file, "r");
-    if (fp == NULL) {
-        printf("Gagal membuka file tokenisasi.\n");
-        return 0;
+void tokenisasiKata(char *namaFile)
+{
+    FILE *fp = fopen(namaFile, "r");
+    if (!fp) {
+        printf("Gagal membuka bersih.txt\n");
+        return;
     }
 
-    char kata[200];
-    int jumlah_kata = 0;
+    char baris[5000];
+    char *token;
 
-    while (fscanf(fp, "%199s", kata) == 1) {
+    while (fgets(baris, sizeof(baris), fp) != NULL)
+    {
+        token = strtok(baris, " \n\t");
 
-        // masukkan kata ke struct
-        strcpy(daftar[jumlah_kata].teks, kata);
-        daftar[jumlah_kata].jumlah  = 1;
-        daftar[jumlah_kata].panjang = strlen(kata);
+        while (token != NULL)
+        {
+            strcpy(daftar[jumlahKata].teks, token);
+            daftar[jumlahKata].panjang = strlen(token);
+            daftar[jumlahKata].freq = 1;
 
-        jumlah_kata++;
+            jumlahKata++;
+
+            token = strtok(NULL, " \n\t");
+        }
     }
 
     fclose(fp);
-    return jumlah_kata;
 }
-

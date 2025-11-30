@@ -1,13 +1,31 @@
+#ifndef STRUKTUR_H
+#define STRUKTUR_H
+
 struct Kata {
     char teks[100];
-    int jumlah;
     int panjang;
+    int freq;
 };
 
-void bersihkan_file(const char*, const char*);
-int  tokenisasi(const char*, struct Kata[]);
-int  hitung_kata(struct Kata[], int);
+extern struct Kata daftar[2000000];
+extern int jumlahKata;
 
-void sort_frekuensi(struct Kata[], int);
-void sort_panjang(struct Kata[], int);
-void sort_alfabet(struct Kata[], int);
+// bersihkan
+void bersihkanTeks(char *input, char *output);
+
+// tokenisasi
+void tokenisasiKata(char *namaFile);
+
+// hitung
+void hitungFrekuensi();
+
+// sorting
+void sortirFrekuensi();
+void sortirPanjang();
+void sortirAlfabet();
+
+// binary
+void simpanBinari(char *namaFile);
+void bacaBinari(char *namaFile, int n);
+
+#endif

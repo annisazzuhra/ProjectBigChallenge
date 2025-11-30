@@ -1,48 +1,54 @@
 #include <string.h>
 #include "struktur.h"
 
-// 1. Berdasarkan frekuensi (descending)
-void sort_frekuensi(struct Kata d[], int n) {
+void swap(struct Kata *a, struct Kata *b)
+{
+    struct Kata t = *a;
+    *a = *b;
+    *b = t;
+}
 
-    for (int i = 0; i < n; i++) {
+// 1. Sort Frekuensi
+void sortirFrekuensi()
+{
+    for (int i = 0; i < jumlahKata - 1; i++) {
         int max = i;
-        for (int j = i + 1; j < n; j++) {
-            if (d[j].jumlah > d[max].jumlah)
+        for (int j = i + 1; j < jumlahKata; j++) {
+            if (daftar[j].freq > daftar[max].freq)
                 max = j;
         }
-        struct Kata temp = d[i];
-        d[i] = d[max];
-        d[max] = temp;
+        swap(&daftar[i], &daftar[max]);
     }
 }
 
-// 2. Berdasarkan panjang kata (descending)
-void sort_panjang(struct Kata d[], int n) {
-
-    for (int i = 0; i < n; i++) {
+// 2. Sort Panjang (jika freq sama)
+void sortirPanjang()
+{
+    for (int i = 0; i < jumlahKata - 1; i++) {
         int max = i;
-        for (int j = i + 1; j < n; j++) {
-            if (d[j].panjang > d[max].panjang)
-                max = j;
+        for (int j = i + 1; j < jumlahKata; j++) {
+            if (daftar[i].freq == daftar[j].freq) {
+                if (daftar[j].panjang > daftar[max].panjang)
+                    max = j;
+            }
         }
-        struct Kata t = d[i];
-        d[i] = d[max];
-        d[max] = t;
+        swap(&daftar[i], &daftar[max]);
     }
 }
 
-// 3. Berdasarkan alfabet (ascending)
-void sort_alfabet(struct Kata d[], int n) {
-
-    for (int i = 0; i < n; i++) {
-        int min = i;
-        for (int j = i + 1; j < n; j++) {
-            if (strcmp(d[j].teks, d[min].teks) < 0)
-                min = j;
+// 3. Sort Alfabet (jika freq & panjang sama)
+void sortirAlfabet()
+{
+    for (int i = 0; i < jumlahKata - 1; i++) {
+        int max = i;
+        for (int j = i + 1; j < jumlahKata; j++) {
+            if (daftar[i].freq == daftar[j].freq &&
+                daftar[i].panjang == daftar[j].panjang)
+            {
+                if (strcmp(daftar[j].teks, daftar[max].teks) > 0)
+                    max = j;
+            }
         }
-        struct Kata t = d[i];
-        d[i] = d[min];
-        d[min] = t;
+        swap(&daftar[i], &daftar[max]);
     }
 }
-
