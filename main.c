@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "struktur.h"
+#include "header.h"
 
-struct Kata daftar[2000000];
-int jumlahKata = 0;
+extern int jumlahKata;
+extern struct Kata daftar[2000000];
 
 int main()
 {
@@ -10,12 +10,11 @@ int main()
     char outputBersih[] = "bersih.txt";
     char fileBin[] = "output.bin";
 
-    int sudahSimpan = 0;   // <--- penanda penting sesuai perintah tugas
+    int sudahSimpan = 0; 
 
     printf("Masukkan nama file input (txt): ");
     scanf("%s", input);
 
-    // proses awal
     bersihkanTeks(input, outputBersih);
     tokenisasiKata(outputBersih);
     hitungFrekuensi();
@@ -40,8 +39,6 @@ int main()
             sudahSimpan = 1;
 
             printf("\nFile binari berhasil disimpan.\n");
-            printf("Tekan ENTER untuk kembali ke menu...");
-        getchar(); getchar();   // <-- pause biar tidak langsung ke menu
         }
 
         else if (pilihan == 2)
@@ -49,8 +46,7 @@ int main()
             int n;
             printf("Masukkan n (1-25): ");
             scanf("%d", &n);
-
-            // <=== BAGIAN PALING PENTING (PERBAIKAN)
+            
             if (!sudahSimpan)
             {
                 printf("File binari belum dibuat. Menyimpan terlebih dahulu...\n");

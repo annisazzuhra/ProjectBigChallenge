@@ -1,17 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "struktur.h"
+#include "header.h"
 
-/* ============================================
-   DEKLARASI GLOBAL
-   ============================================ */
-struct Kata daftar[2000000];
 int jumlahKata = 0;
+struct Kata daftar[2000000];
 
-/* ============================================
-   1. MEMBERSIHKAN TEKS
-   ============================================ */
 void bersihkanTeks(char *input, char *output)
 {
     FILE *fp = fopen(input, "r");
@@ -60,9 +54,6 @@ void bersihkanTeks(char *input, char *output)
     fclose(fw);
 }
 
-/* ============================================
-   2. TOKENISASI KATA
-   ============================================ */
 void tokenisasiKata(char *namaFile)
 {
     FILE *fp = fopen(namaFile, "r");
@@ -76,7 +67,7 @@ void tokenisasiKata(char *namaFile)
 
     while (fgets(baris, sizeof(baris), fp) != NULL)
     {
-        token = strtok(baris, " \n\t");
+        token = strtok(baris, " \n");
 
         while (token != NULL)
         {
@@ -85,16 +76,13 @@ void tokenisasiKata(char *namaFile)
             daftar[jumlahKata].freq = 1;
             jumlahKata++;
 
-            token = strtok(NULL, " \n\t");
+            token = strtok(NULL, " \n");
         }
     }
 
     fclose(fp);
 }
 
-/* ============================================
-   3. HITUNG FREKUENSI
-   ============================================ */
 void hitungFrekuensi()
 {
     for (int i = 0; i < jumlahKata; i++)
@@ -116,9 +104,6 @@ void hitungFrekuensi()
     }
 }
 
-/* ============================================
-   4. SORTIR
-   ============================================ */
 void swap(struct Kata *a, struct Kata *b)
 {
     struct Kata t = *a;
@@ -126,7 +111,6 @@ void swap(struct Kata *a, struct Kata *b)
     *b = t;
 }
 
-// Sort berdasarkan frekuensi
 void sortirFrekuensi()
 {
     for (int i = 0; i < jumlahKata - 1; i++) {
@@ -139,7 +123,6 @@ void sortirFrekuensi()
     }
 }
 
-// Sort berdasarkan panjang (freq sama)
 void sortirPanjang()
 {
     for (int i = 0; i < jumlahKata - 1; i++) {
@@ -154,7 +137,6 @@ void sortirPanjang()
     }
 }
 
-// Sort alfabet (freq & panjang sama)
 void sortirAlfabet()
 {
     for (int i = 0; i < jumlahKata - 1; i++) {
@@ -171,9 +153,6 @@ void sortirAlfabet()
     }
 }
 
-/* ============================================
-   5. SIMPAN KE FILE BINARI
-   ============================================ */
 void simpanBinari(char *namaFile)
 {
     FILE *fb = fopen(namaFile, "wb");
@@ -208,9 +187,6 @@ void simpanBinari(char *namaFile)
     fclose(fb);
 }
 
-/* ============================================
-   6. BACA FILE BINARI (TOP N)
-   ============================================ */
 void bacaBinari(char *namaFile, int n)
 {
     FILE *fb = fopen(namaFile, "rb");
