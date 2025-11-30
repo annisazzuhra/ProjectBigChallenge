@@ -1,6 +1,9 @@
 #include <string.h>
 #include "struktur.h"
 
+extern struct Kata daftar[2000000];
+extern int jumlahKata;
+
 void swap(struct Kata *a, struct Kata *b)
 {
     struct Kata t = *a;

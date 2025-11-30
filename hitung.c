@@ -1,6 +1,9 @@
 #include <string.h>
 #include "struktur.h"
 
+extern struct Kata daftar[2000000];
+extern int jumlahKata;
+
 void hitungFrekuensi()
 {
     for (int i = 0; i < jumlahKata; i++)

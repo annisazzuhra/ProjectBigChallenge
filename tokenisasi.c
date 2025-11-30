@@ -2,8 +2,8 @@
 #include <string.h>
 #include "struktur.h"
 
-struct Kata daftar[2000000];
-int jumlahKata = 0;
+extern struct Kata daftar[2000000];
+extern int jumlahKata;
 
 void tokenisasiKata(char *namaFile)
 {
