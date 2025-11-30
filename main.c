@@ -37,6 +37,7 @@ int main()
         {
             simpanBinari(fileBin);
             sudahSimpan = 1;
+            printf("\n");
 
             printf("\nFile binari berhasil disimpan.\n");
         }
